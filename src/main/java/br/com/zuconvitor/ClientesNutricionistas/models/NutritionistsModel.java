@@ -12,32 +12,38 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "customers")
-@Table(name = "customers")
+@Entity(name = "nutritionists")
+@Table(name = "nutritionists")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CustomersModel {
+public class NutritionistsModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_customer")
+    @Column(name = "id_nutritionist")
     private String id;
 
-    @Column(name = "name_customer")
+    @Column(name = "name_nutritionist")
     @NotBlank(message = "name field cannot be blank")
     @Size(min = 3)
     private String name;
 
-    @Column(name = "cpf_customer")
+    @Column(name = "cpf_nutritionist")
     @NotBlank(message = "cpf field cannot be blank")
     private String cpf;
 
-    @Column(name = "tel_customer")
+    @Column(name = "tel_nutritionist")
     @NotBlank(message = "tel field cannot be blank")
     private String tel;
 
-    @Column(name = "sts_customer")
+    @Column(name = "sts_nutritionist")
     @Size(max = 1)
     private String status;
+
+    @Column(name = "crn_nutritionist")
+    private String cnr_number;
+
+    @Column(name = "specialization_nutritionist")
+    private String specialization;
 }
