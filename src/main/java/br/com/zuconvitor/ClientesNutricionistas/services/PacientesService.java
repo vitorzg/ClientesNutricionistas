@@ -43,7 +43,6 @@ public class PacientesService {
 
         existingPaciente.setNome(paciente.getNome());
         existingPaciente.setEmail(paciente.getEmail());
-
         existingPaciente.setCpf(paciente.getCpf());
         existingPaciente.setTel(paciente.getTel());
         existingPaciente.setActive(paciente.getActive());

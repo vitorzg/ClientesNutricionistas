@@ -17,12 +17,6 @@ public class NutricionistasController {
     @Autowired
     private NutricionistasService nutricionistasService;
 
-    @PostMapping
-    public ResponseEntity<Nutricionistas> createNutricionista(@Valid @RequestBody Nutricionistas nutricionista) {
-        Nutricionistas createdNutricionista = nutricionistasService.create(nutricionista);
-        return ResponseEntity.ok(createdNutricionista);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Nutricionistas> findNutricionistaById(@Valid @PathVariable String id) {
         Nutricionistas nutricionista = nutricionistasService.findById(id);

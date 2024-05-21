@@ -1,15 +1,19 @@
 package br.com.zuconvitor.ClientesNutricionistas.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -39,16 +43,16 @@ public class Nutricionistas implements UserDetails{
     private String senha;
 
     @Column(name = "cpf_nutricionista")
-    @NotBlank
     private String cpf;
 
     @Column(name = "tel_nutricionista")
-    @NotBlank
     private String tel;
 
     @Column(name = "especialidade_nutricionista")
-    @NotBlank
     private String especialidade;
+
+    @OneToMany(mappedBy = "responsavel", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Pacientes> pacientes = new ArrayList<Pacientes>();
 
     @Column(name = "active_nutricionista")
     private Boolean active = true;
@@ -60,7 +64,7 @@ public class Nutricionistas implements UserDetails{
 
     @Override
     public String getPassword() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+        return this.getSenha();
     }
 
     @Override
@@ -86,5 +90,11 @@ public class Nutricionistas implements UserDetails{
     @Override
     public boolean isEnabled() {
         throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
+    }
+
+    public Nutricionistas(String emailReq, String eSenha, String nomeReq) {
+        this.email = emailReq;
+        this.senha = eSenha;
+        this.nome = nomeReq;
     } 
 }

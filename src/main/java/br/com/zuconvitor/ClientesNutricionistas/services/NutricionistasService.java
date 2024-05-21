@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import br.com.zuconvitor.ClientesNutricionistas.models.Nutricionistas;
 import br.com.zuconvitor.ClientesNutricionistas.repositories.NutricionistasRepository;
 import jakarta.transaction.Transactional;
@@ -17,15 +15,6 @@ public class NutricionistasService {
     
     @Autowired
     private NutricionistasRepository nutricionistasRepository;
-
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    public Nutricionistas create(Nutricionistas nutricionista){
-        nutricionista.setId(null);
-        nutricionista.setSenha(passwordEncoder.encode(nutricionista.getSenha()));
-        nutricionista = this.nutricionistasRepository.save(nutricionista);
-        return nutricionista;
-    }
 
     public Nutricionistas findById(String id) {
         Optional<Nutricionistas> nutricionista = nutricionistasRepository.findById(id);
@@ -42,9 +31,6 @@ public class NutricionistasService {
 
         existingNutricionista.setNome(nutricionista.getNome());
         existingNutricionista.setEmail(nutricionista.getEmail());
-        if (nutricionista.getSenha() != null && !nutricionista.getSenha().isEmpty()) {
-            existingNutricionista.setSenha(passwordEncoder.encode(nutricionista.getSenha()));
-        }
         existingNutricionista.setCpf(nutricionista.getCpf());
         existingNutricionista.setTel(nutricionista.getTel());
         existingNutricionista.setEspecialidade(nutricionista.getEspecialidade());

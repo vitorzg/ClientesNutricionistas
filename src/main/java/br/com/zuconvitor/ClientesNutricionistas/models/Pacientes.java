@@ -1,10 +1,13 @@
 package br.com.zuconvitor.ClientesNutricionistas.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +39,11 @@ public class Pacientes {
     @Column(name = "tel_paciente")
     @NotBlank
     private String tel;
+
+    @org.hibernate.annotations.ForeignKey(name = "responsavel_paciente")
+    @ManyToOne
+    @JsonIgnore
+    private Nutricionistas responsavel;
 
     @Column(name = "active_paciente")
     private Boolean active = true;
