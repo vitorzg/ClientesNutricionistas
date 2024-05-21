@@ -36,11 +36,6 @@ public class NutricionistasService {
         return nutricionistasRepository.findAll();
     }
 
-    public Nutricionistas findByEmail(String email) {
-        Optional<Nutricionistas> nutricionista = nutricionistasRepository.findByEmail(email);
-        return nutricionista.orElseThrow(() -> new RuntimeException("Nutricionista not found with email: " + email));
-    }
-
     @Transactional
     public Nutricionistas update(Nutricionistas nutricionista) {
         Nutricionistas existingNutricionista = findById(nutricionista.getId()); // Ensure existence

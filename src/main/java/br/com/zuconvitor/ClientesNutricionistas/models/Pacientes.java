@@ -29,10 +29,6 @@ public class Pacientes {
     @Email
     private String email;
 
-    @Column(name = "senha_paciente")
-    @NotBlank
-    private String senha;
-
     @Column(name = "cpf_paciente")
     @NotBlank
     private String cpf;

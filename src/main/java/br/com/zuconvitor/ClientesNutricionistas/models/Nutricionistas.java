@@ -1,5 +1,10 @@
 package br.com.zuconvitor.ClientesNutricionistas.models;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +18,7 @@ import lombok.Data;
 @Entity(name = "nutricionistas") // Define the entity name
 @Table(name = "nutricionistas") // Define the table name
 @Data
-public class Nutricionistas{
+public class Nutricionistas implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -46,5 +51,40 @@ public class Nutricionistas{
     private String especialidade;
 
     @Column(name = "active_nutricionista")
-    private Boolean active = true; 
+    private Boolean active = true;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
+
+    @Override
+    public String getPassword() {
+        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonExpired'");
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        throw new UnsupportedOperationException("Unimplemented method 'isCredentialsNonExpired'");
+    }
+
+    @Override
+    public boolean isEnabled() {
+        throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
+    } 
 }

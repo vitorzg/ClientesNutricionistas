@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +17,8 @@ public class PacientesService {
     @Autowired
     private PacientesRepository pacientesRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     public Pacientes create(Pacientes paciente) {
-        paciente.setId(null);
-        paciente.setSenha(passwordEncoder.encode(paciente.getSenha())); // Hash password before saving
+        paciente.setId(null); // Hash password before saving
         paciente = pacientesRepository.save(paciente);
         return paciente;
     }
@@ -47,9 +43,7 @@ public class PacientesService {
 
         existingPaciente.setNome(paciente.getNome());
         existingPaciente.setEmail(paciente.getEmail());
-        if (paciente.getSenha() != null && !paciente.getSenha().isEmpty()) {
-            existingPaciente.setSenha(passwordEncoder.encode(paciente.getSenha()));
-        }
+
         existingPaciente.setCpf(paciente.getCpf());
         existingPaciente.setTel(paciente.getTel());
         existingPaciente.setActive(paciente.getActive());
